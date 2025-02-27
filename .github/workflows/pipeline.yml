@@ -18,4 +18,4 @@ jobs:
       - name: build
         run: npm run build
       - name: test code
-        run: npm run text
+        run: npm run test
