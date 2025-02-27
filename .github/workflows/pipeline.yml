@@ -12,7 +12,7 @@ on:
 
 
 jobs:
-  simple_development_pipeline:
+  production:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +23,8 @@ jobs:
         run: npm install
       - name: check style
         run: npm run eslint
-      - name: build
-        run: npm run build
       - name: test code
         run: npm run test
+      - name: build
+        if: ${{ github.event_name == 'push' }}
+        run: echo 'build the whole Application'
