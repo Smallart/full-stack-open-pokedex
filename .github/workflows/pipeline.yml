@@ -28,9 +28,13 @@ jobs:
       - name: build
         if: ${{ github.event_name == 'push' }}
         run: echo 'build the whole Application'
-      - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' }}
-        uses: anothrNick/github-tag-action@1.64.0
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  
-          DEFAULT_BUMP: patch
+  tag_release:
+      needs: [production]
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Bump version and push tag
+          if: ${{ github.event_name == 'push' }}
+          uses: anothrNick/github-tag-action@1.64.0
+          env:
+            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}  
+            DEFAULT_BUMP: patch
